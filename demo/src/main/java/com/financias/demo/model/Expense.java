@@ -22,7 +22,6 @@ public class Expense {
 
     private String description;
 
-    // relacionamento com Product
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id")
     private Product product;
