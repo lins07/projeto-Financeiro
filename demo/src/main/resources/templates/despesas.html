@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Despesas</title>
+</head>
+<body>
+
+<h2>Minhas despesas</h2>
+
+<a href="/despesas/nova">Nova despesa</a> |
+<a href="/home">Voltar</a>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>Item</th>
+            <th>Valor</th>
+            <th>Data</th>
+            <th>Horário</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="despesa : ${despesas}">
+            <td th:text="${despesa.item}"></td>
+            <td th:text="${despesa.amount}"></td>
+            <td th:text="${despesa.date}"></td>
+            <td th:text="${despesa.time}"></td>
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
