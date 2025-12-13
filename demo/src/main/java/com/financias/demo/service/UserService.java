@@ -2,30 +2,38 @@ package com.financias.demo.service;
 
 import com.financias.demo.model.User;
 import com.financias.demo.repository.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UserService implements UserDetailsService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.findByUsername(username);
-        
-        if (user == null) {
-
-            throw new UsernameNotFoundException("Usuário não encontrado: " + username); 
-        }
-        
-        return (UserDetails) user; 
+    public UserService(UserRepository userRepository,
+                       PasswordEncoder passwordEncoder) {
+        this.userRepository = userRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    public User save(User user) {
+    @Override
+    public UserDetails loadUserByUsername(String username)
+            throws UsernameNotFoundException {
+
+        return userRepository.findByUsername(username)
+                .orElseThrow(() ->
+                        new UsernameNotFoundException("Usuário não encontrado"));
+    }
+
+    public User criarUsuario(String username, String senha) {
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(passwordEncoder.encode(senha));
+        user.setRole("ROLE_USER");
         return userRepository.save(user);
     }
 }
