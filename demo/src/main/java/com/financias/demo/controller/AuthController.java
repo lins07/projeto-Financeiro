@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class AuthController {
 
-    // CORREÇÃO: Mapeia a raiz ('/') e o '/login'
+    
     @GetMapping({"/", "/login"})
     public String login() {
-        return "login"; // Retorna o template login.html
+        return "login"; 
     }
 
     @GetMapping("/register")
