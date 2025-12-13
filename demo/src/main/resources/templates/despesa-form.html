@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Nova Despesa</title>
+</head>
+<body>
+
+<h2>Adicionar Despesa</h2>
+
+<form action="/despesas" method="post">
+    <label>Item:</label>
+    <input type="text" name="item"><br><br>
+
+    <label>Valor:</label>
+    <input type="text" name="amount"><br><br>
+
+    <label>Data:</label>
+    <input type="date" name="date"><br><br>
+
+    <label>Horário:</label>
+    <input type="time" name="time"><br><br>
+
+    <button type="submit">Salvar</button>
+</form>
+
+<a href="/despesas">Voltar</a>
+
+</body>
+</html>
