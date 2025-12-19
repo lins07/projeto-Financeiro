@@ -31,4 +31,16 @@ public class ExpenseController {
         repo.save(expense);
         return "redirect:/despesas";
     }
+
+    // O @GetMapping indica que quando o navegador acessar esta URL, o código abaixo roda
+@GetMapping("/despesas/excluir/{id}")
+public String excluirDespesa(@PathVariable Long id) {
+    
+    // 1. O @PathVariable pega o número (ID) que vem na URL (ex: /excluir/5)
+    // 2. O repository executa o comando SQL "DELETE FROM expense WHERE id = id"
+    repo.deleteById(id);
+    
+    // 3. Após apagar, ele redireciona o utilizador de volta para a lista atualizada
+    return "redirect:/despesas";
+}
 }
