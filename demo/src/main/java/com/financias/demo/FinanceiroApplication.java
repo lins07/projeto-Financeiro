@@ -14,10 +14,13 @@ public class FinanceiroApplication {
     }
 
     @Bean
-    CommandLineRunner init(UserService userService) {
-        return args -> {
+CommandLineRunner init(UserService userService) {
+    return args -> {
+        if (!userService.existeUsuario("admin")) {
             userService.criarUsuario("admin", "123");
             System.out.println("USUÁRIO ADMIN CRIADO");
-        };
-    }
+        }
+    };
+  }
 }
+

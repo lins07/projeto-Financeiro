@@ -25,8 +25,9 @@ public class ExpenseController {
         return "despesa-form";
     }
 
+    // Unificamos em apenas um método PostMapping
     @PostMapping("/despesas")
-    public String save(Expense expense) {
+    public String save(@ModelAttribute("despesa") Expense expense) {
         repo.save(expense);
         return "redirect:/despesas";
     }

@@ -1,18 +1,86 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br" 
+      xmlns:th="http://www.thymeleaf.org" 
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>Início</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Controle Financeiro</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
+        .sidebar { background-color: #0d6efd; min-height: 100vh; color: white; }
+        .nav-link { color: rgba(255,255,255,0.8); transition: 0.3s; }
+        .nav-link:hover { color: white; background: rgba(255,255,255,0.1); border-radius: 5px; }
+        .card-custom { border: none; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transition: 0.3s; }
+        .card-custom:hover { transform: translateY(-5px); }
+        .welcome-section { background: white; padding: 20px; border-radius: 15px; margin-bottom: 30px; }
+    </style>
 </head>
 <body>
 
-<h2>Olá! Você está logado.</h2>
+<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-3 col-lg-2 d-md-block sidebar collapse p-4">
+            <h4 class="mb-4 text-center">💰 Financias</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a class="nav-link active fw-bold text-white" href="/home">🏠 Dashboard</a></li>
+                <li class="nav-item mb-2"><a class="nav-link" href="/despesas">📋 Minhas Despesas</a></li>
+                <li class="nav-item mb-2"><a class="nav-link" href="/despesas/nova">➕ Nova Despesa</a></li>
+                <hr>
+                <li class="nav-item"><a class="nav-link text-warning" href="/logout">🚪 Sair</a></li>
+            </ul>
+        </nav>
 
-<nav>
-    <a href="/despesas">Despesas</a> |
-    <a href="/produtos">Produtos</a> |
-    <a href="/logout">Sair</a>
-</nav>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 pt-4">
+            <div class="welcome-section d-flex justify-content-between align-items-center shadow-sm">
+                <div>
+                    <h2 class="mb-0">Olá, <span sec:authentication="name">Usuário</span>!</h2>
+                    <p class="text-muted mb-0">Resumo das suas finanças.</p>
+                </div>
+                <div class="text-end text-muted">
+                    <small th:text="${#calendars.format(#calendars.createNow(), 'dd/MM/yyyy')}"></small>
+                </div>
+            </div>
 
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card card-custom p-4 bg-primary text-white">
+                        <h6>Total Gasto</h6>
+                        <h3 th:text="${totalGasto != null ? 'R$ ' + totalGasto : 'R$ 0,00'}">R$ 0,00</h3>
+                        <small>Geral acumulado</small>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card card-custom p-4 bg-success text-white">
+                        <h6>Economia</h6>
+                        <h3>R$ 0,00</h3>
+                        <small>Meta do mês</small>
+                    </div>
+                </div>
+
+                <div class="col-md-4 mb-4">
+                    <div class="card card-custom p-4 bg-white text-dark border">
+                        <h6>Status do Sistema</h6>
+                        <p class="mb-0 text-success fw-bold">Online</p>
+                        <small>Conectado ao Banco</small>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <h4>Ações Rápidas</h4>
+                <div class="d-flex gap-3 mt-3">
+                    <a href="/despesas/nova" class="btn btn-primary btn-lg shadow">Registrar Despesa</a>
+                    <a href="/despesas" class="btn btn-outline-primary btn-lg shadow-sm">Ver Listagem</a>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

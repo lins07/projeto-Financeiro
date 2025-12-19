@@ -36,4 +36,9 @@ public class UserService implements UserDetailsService {
         user.setRole("ROLE_USER");
         return userRepository.save(user);
     }
+
+    public boolean existeUsuario(String username) {
+    return userRepository.findByUsername(username).isPresent();
+}
+
 }

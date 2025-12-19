@@ -1,29 +1,74 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Nova Despesa</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Despesa - Financias</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; }
+        .card-form { border: none; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); max-width: 600px; margin: auto; }
+        .btn-primary { border-radius: 8px; padding: 10px 20px; font-weight: 600; }
+        .form-label { font-weight: 600; color: #495057; }
+    </style>
 </head>
 <body>
 
-<h2>Adicionar Despesa</h2>
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">💰 Nova Despesa</h2>
+        <p class="text-muted">Preencha os dados abaixo para registrar seu gasto.</p>
+    </div>
 
-<form action="/despesas" method="post">
-    <label>Item:</label>
-    <input type="text" name="item"><br><br>
+    <div class="card card-form p-4 p-md-5">
+        <form action="/despesas" method="post">
+            
+            <div class="mb-3">
+                <label for="item" class="form-label">O que você comprou? (Item)</label>
+                <input type="text" class="form-control form-control-lg" id="item" name="item" 
+                       placeholder="Ex: Supermercado, Aluguel..." required>
+            </div>
 
-    <label>Valor:</label>
-    <input type="text" name="amount"><br><br>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="amount" class="form-label">Valor (R$)</label>
+                    <div class="input-group">
+                        <span class="input-group-text bg-light">R$</span>
+                        <input type="number" step="0.01" class="form-control form-control-lg" 
+                               id="amount" name="amount" placeholder="0,00" required>
+                    </div>
+                </div>
 
-    <label>Data:</label>
-    <input type="date" name="date"><br><br>
+                <div class="col-md-6 mb-3">
+                    <label for="date" class="form-label">Data</label>
+                    <input type="date" class="form-control form-control-lg" id="date" name="date" required>
+                </div>
+            </div>
 
-    <label>Horário:</label>
-    <input type="time" name="time"><br><br>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label for="time" class="form-label">Horário</label>
+                    <input type="time" class="form-control form-control-lg" id="time" name="time">
+                </div>
 
-    <button type="submit">Salvar</button>
-</form>
+                <div class="col-md-6 mb-3">
+                    <label for="description" class="form-label">Descrição (Opcional)</label>
+                    <input type="text" class="form-control form-control-lg" id="description" 
+                           name="description" placeholder="Algum detalhe extra?">
+                </div>
+            </div>
 
-<a href="/despesas">Voltar</a>
+            <hr class="my-4">
 
+            <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary btn-lg shadow">Salvar Despesa</button>
+                <a href="/despesas" class="btn btn-link text-muted">Cancelar e Voltar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
